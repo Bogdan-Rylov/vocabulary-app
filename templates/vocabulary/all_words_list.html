@@ -1,0 +1,77 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div>
+      <h4>All words</h4>
+    </div>
+
+    <div>
+      <div class="d-flex">
+        <a
+            href="{% url 'vocabulary:word-create-in-all' %}"
+            class="btn btn-link me-2"
+        >
+          <i style="color: black; font-size: 1.3em;"
+             class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {% block search_form %}
+    {% include "base/_search_form.html" %}
+  {% endblock %}
+
+  {% for word in word_list %}
+
+    <hr style="margin: 10px 0 4px; color: #5050520d; opacity: 1;">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="flex-grow-1">
+        <h5 class="d-inline">
+          <span
+              class="text-muted">({{ word.part_of_speech.short_name }}.)</span>
+          <span> {{ word.text }}</span>
+          <span>
+            {% if word.translations.count > 0 %}
+              - {{ word.translations.first.text }}
+              {% if word.translations.count > 1 %}
+                {% for translation in word.translations.all|slice:"1:" %}
+                  , {{ translation.text }}
+                {% endfor %}
+                {#                + {{ word.translations.count|add:"-1" }}#}
+              {% endif %}
+            {% else %}
+              - n/a
+            {% endif %}
+          </span>
+        </h5>
+
+        {% if word.definitions.count > 0 %}
+          <p class="mb-0">- {{ word.definitions.first.text }}</p>
+        {% endif %}
+      </div>
+
+      <div class="d-flex">
+        <a
+            href="{% url 'vocabulary:word-detail-in-all' pk=word.id %}"
+            class="btn btn-link me-2"
+        >
+          <i style="color: black; font-size: 1.3em;"
+             class="fas fa-info-circle"></i>
+        </a>
+        <a
+            href="{% url 'vocabulary:word-delete-in-all' pk=word.id %}"
+            class="btn btn-link"
+        >
+          <i style="color: red; font-size: 1.2em; font-weight: 300"
+             class="fas fa-trash-alt"></i>
+        </a>
+      </div>
+    </div>
+
+  {% empty %}
+    <p>Words not found</p>
+
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div>
+      {% if word_list_pk %}
+        <a href="{% url 'vocabulary:word-list-words-list' list_pk=word_list_pk %}"
+           style="color: black" class="btn btn-link">
+          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
+        </a>
+      {% else %}
+        <a href="{% url 'vocabulary:all-words-list' %}"
+           style="color: black" class="btn btn-link">
+          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
+        </a>
+      {% endif %}
+    </div>
+
+    <div>
+      <a class="btn btn-light me-2">
+        <i style="font-size: 1.1em; font-weight: 300" class="fas fa-edit"></i>
+      </a>
+      <a class="btn btn-danger">
+        <i style="font-weight: 300" class="fas fa-trash-alt"></i>
+      </a>
+    </div>
+  </div>
+
+  <br>
+  <div class="row justify-content-left">
+    <div class="col-md-6">
+      <h5 class="d-inline"><span style="font-size: 0.85em; font-weight: normal"
+                                 class="text-muted">noun</span> tree</h5>
+      <p style="margin: 0">дерево</p>
+      <p class="mt-1">
+        - a perennial plant with a trunk and branches
+      </p>
+    </div>
+  </div>
+{% endblock %}

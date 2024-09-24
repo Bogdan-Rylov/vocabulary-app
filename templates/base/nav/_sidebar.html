@@ -1,0 +1,25 @@
+<aside class="sidebar">
+
+  <div class="profile">
+    <i class="fa fa-user mx-1"></i>
+    <p class="user-name">{{ user.username }}</p>
+    <p class="user-email">{{ user.email }}</p>
+  </div>
+  <div class="logout">
+    <a href="#">Logout</a>
+  </div>
+
+  <hr>
+
+  <nav>
+    <ul class="list-unstyled">
+      <li><a href="{% url 'vocabulary:home' %}">Home</a></li>
+      <li><a href="#">Word Calendar</a></li>
+      <li><a href="{% url 'vocabulary:all-words-list' %}">All Words</a></li>
+      <li><a href="{% url 'vocabulary:word-list-list' %}">Lists</a></li>
+      <li><a href="#">Cards</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+
+</aside>

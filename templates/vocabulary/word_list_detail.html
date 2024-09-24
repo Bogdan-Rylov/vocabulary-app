@@ -1,0 +1,25 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div>
+      <h4>
+        <a href="{% url 'vocabulary:word-list-words-list' list_pk=wordlist.id%}"
+           style="color: black" class="btn btn-link">
+          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
+        </a>
+        {{ wordlist.title }}
+      </h4>
+    </div>
+
+    <div>
+      <a class="btn btn-light me-2">
+        <i style="font-size: 1.1em; font-weight: 300" class="fas fa-edit"></i>
+      </a>
+      <a class="btn btn-danger">
+        <i style="font-weight: 300" class="fas fa-trash-alt"></i>
+      </a>
+    </div>
+  </div>
+
+{% endblock %}

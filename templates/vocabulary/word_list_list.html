@@ -1,0 +1,60 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div>
+      <h4>Lists</h4>
+    </div>
+
+    <div>
+      <div class="d-flex">
+        <a
+            href="{% url 'vocabulary:word-list-create' %}"
+            class="btn btn-link me-2"
+        >
+          <i style="color: black; font-size: 1.3em;"
+             class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {% block search_form %}
+    {% include "base/_search_form.html" %}
+  {% endblock %}
+
+  {% for list in word_list_list %}
+
+    <hr style="margin: 10px 0 4px; color: #5050520d; opacity: 1;">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="flex-grow-1">
+        <h5 class="d-inline">
+          <a href="{% url 'vocabulary:word-list-words-list' list_pk=list.id %}"
+          >{{ list.title }}</a>
+          <span> ({{ list.words.count }})</span>
+        </h5>
+      </div>
+
+      <div class="d-flex">
+        <a
+            href="{% url 'vocabulary:word-list-detail' pk=list.id %}"
+            class="btn btn-link me-2"
+        >
+          <i style="color: black; font-size: 1.3em;"
+             class="fas fa-info-circle"></i>
+        </a>
+        <a
+            href="{% url 'vocabulary:word-list-delete' pk=list.id %}"
+            class="btn btn-link"
+        >
+          <i style="color: red; font-size: 1.2em; font-weight: 300"
+             class="fas fa-trash-alt"></i>
+        </a>
+      </div>
+    </div>
+
+  {% empty %}
+    <p>Lists not found</p>
+
+  {% endfor %}
+{% endblock %}
