@@ -1,12 +1,11 @@
 <aside class="sidebar">
 
-  <div class="profile">
-    <i class="fa fa-user mx-1"></i>
-    <p class="user-name">{{ user.username }}</p>
+  <div class="profile mt-3">
+    <p class="user-name mb-0"><i class="fa fa-user mx-1"></i> {{ user.username }}</p>
     <p class="user-email">{{ user.email }}</p>
   </div>
   <div class="logout">
-    <a href="#">Logout</a>
+    <a href="{% url 'accounts:logout' %}">Logout</a>
   </div>
 
   <hr>
@@ -14,11 +13,11 @@
   <nav>
     <ul class="list-unstyled">
       <li><a href="{% url 'vocabulary:home' %}">Home</a></li>
-      <li><a href="#">Word Calendar</a></li>
+      <li><a href="#!" class="d-none">Word Calendar</a></li>
       <li><a href="{% url 'vocabulary:all-words-list' %}">All Words</a></li>
       <li><a href="{% url 'vocabulary:word-list-list' %}">Lists</a></li>
-      <li><a href="#">Cards</a></li>
-      <li><a href="#">Settings</a></li>
+      <li><a href="#!" class="d-none">Cards</a></li>
+      <li><a href="#!" class="d-none">Settings</a></li>
     </ul>
   </nav>
 

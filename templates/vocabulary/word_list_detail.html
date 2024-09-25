@@ -3,23 +3,30 @@
 {% block content %}
   <div class="d-flex justify-content-between align-items-center mt-3">
     <div>
-      <h4>
-        <a href="{% url 'vocabulary:word-list-words-list' list_pk=wordlist.id%}"
-           style="color: black" class="btn btn-link">
-          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
-        </a>
-        {{ wordlist.title }}
-      </h4>
+      <a href="{% url 'vocabulary:word-list-list' %}"
+         style="color: black" class="btn btn-link">
+        <i style="font-size: 1.2em" class="fas fa-arrow-left"></i>
+      </a>
     </div>
 
     <div>
-      <a class="btn btn-light me-2">
-        <i style="font-size: 1.1em; font-weight: 300" class="fas fa-edit"></i>
+      <a href="{% url 'vocabulary:word-list-update' pk=wordlist.id %}"
+         class="btn btn-link me-2">
+        <i style="color: black; font-size: 1.2em; font-weight: 300"
+           class="fas fa-edit"></i>
       </a>
-      <a class="btn btn-danger">
-        <i style="font-weight: 300" class="fas fa-trash-alt"></i>
+      <a href="{% url 'vocabulary:word-list-delete' pk=wordlist.id %}"
+         class="btn btn-link">
+        <i style="color: red; font-size: 1.2em; font-weight: 300"
+           class="fas fa-trash-alt"></i>
       </a>
     </div>
   </div>
 
+  <div class="mt-4">
+    <p><strong>Title:</strong> {{ wordlist.title }}</p>
+    <p><strong>Description:</strong> {{ wordlist.description }}</p>
+    <p><strong>Created at:</strong> {{ wordlist.date_created }}</p>
+    <p><strong>Last updated:</strong> {{ wordlist.date_updated }}</p>
+  </div>
 {% endblock %}

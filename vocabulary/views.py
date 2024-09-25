@@ -66,7 +66,7 @@ class WordListDetailView(LoginRequiredMixin, DetailView):
 
 class WordListCreateView(LoginRequiredMixin, CreateView):
     model = WordList
-    fields = ("title",)
+    fields = ("title", "description",)
     template_name = "vocabulary/word_list_form.html"
     success_url = reverse_lazy("vocabulary:word-list-list")
 
@@ -77,7 +77,8 @@ class WordListCreateView(LoginRequiredMixin, CreateView):
 
 class WordListUpdateView(LoginRequiredMixin, UpdateView):
     model = WordList
-    fields = ("title",)
+    fields = ("title", "description",)
+    template_name = "vocabulary/word_list_form.html"
     success_url = reverse_lazy("vocabulary:word-list-list")
 
 
@@ -122,7 +123,7 @@ class WordListWordsListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
 
-        word_list_pk = self.kwargs.get("list_pk")
+        word_list_pk = self.kwargs.get("word_list_pk")
         context["word_list"] = WordList.objects.get(id=word_list_pk)
 
         text = self.request.GET.get("text", "")
@@ -133,7 +134,7 @@ class WordListWordsListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        word_list_pk = self.kwargs.get("list_pk")
+        word_list_pk = self.kwargs.get("word_list_pk")
         queryset = WordList.objects.get(id=word_list_pk).words.all()
 
         form = WordSearchForm(self.request.GET)
@@ -146,20 +147,6 @@ class WordListWordsListView(LoginRequiredMixin, ListView):
 class WordDetailView(LoginRequiredMixin, DetailView):
     model = Word
 
-    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
-        context = super().get_context_data(**kwargs)
-
-        word_list_pk = self.kwargs.get("list_pk")
-        if word_list_pk:
-            context["word_list_pk"] = word_list_pk
-
-        text = self.request.GET.get("text", "")
-        context["search_form"] = WordSearchForm(
-            initial={"text": text}
-        )
-
-        return context
-
 
 class WordCreateView(LoginRequiredMixin, CreateView):
     model = Word
@@ -170,7 +157,7 @@ class WordCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
 
-        word_list_pk = self.kwargs.get("list_pk")
+        word_list_pk = self.kwargs.get("word_list_pk")
         if word_list_pk:
             context["word_list_pk"] = word_list_pk
 
@@ -188,7 +175,7 @@ class WordCreateView(LoginRequiredMixin, CreateView):
 
 class WordUpdateView(LoginRequiredMixin, UpdateView):
     model = Word
-    fields = "__all__"
+    fields = ("part_of_speech", "text", "transcription", "knowledge_level", "word_lists")
     success_url = reverse_lazy("vocabulary:all-words-list")
 
 

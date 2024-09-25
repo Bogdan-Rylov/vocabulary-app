@@ -64,27 +64,27 @@ urlpatterns = [
     ),
 
     path(
-        "word-lists/<int:list_pk>/words/",
+        "word-lists/<int:word_list_pk>/words/",
         WordListWordsListView.as_view(),
         name="word-list-words-list"
     ),
     path(
-        "word-lists/<int:list_pk>/words/<int:pk>/",
+        "word-lists/<int:word_list_pk>/words/<int:pk>/",
         WordDetailView.as_view(),
         name="word-detail-in-list"
     ),
     path(
-        "word-lists/<int:list_pk>/words/create/",
+        "word-lists/<int:word_list_pk>/words/create/",
         WordCreateView.as_view(),
         name="word-create-in-list"
     ),
     path(
-        "word-lists/<int:list_pk>/words/<int:pk>/update/",
+        "word-lists/<int:word_list_pk>/words/<int:pk>/update/",
         WordUpdateView.as_view(),
         name="word-update-in-list"
     ),
     path(
-        "word-lists/<int:list_pk>/words/<int:pk>/delete/",
+        "word-lists/<int:word_list_pk>/words/<int:pk>/delete/",
         WordDeleteView.as_view(),
         name="word-delete-in-list"
     ),

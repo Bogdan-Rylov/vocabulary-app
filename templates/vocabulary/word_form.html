@@ -3,37 +3,38 @@
 {% block content %}
   <div class="d-flex justify-content-between align-items-center mt-3">
     <div>
-      {% if word_list_pk %}
-        <a href="{% url 'vocabulary:word-list-words-list' list_pk=word_list_pk %}"
-           style="color: black" class="btn btn-link">
-          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
-        </a>
-      {% else %}
-        <a href="{% url 'vocabulary:all-words-list' %}"
-           style="color: black" class="btn btn-link">
-          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
-        </a>
-      {% endif %}
+      {% with list_pk=request.resolver_match.kwargs.list_pk %}
+        {% if list_pk %}
+          <a href="{% url 'vocabulary:word-list-words-list' word_list_pk=list_pk %}"
+             style="color: black" class="btn btn-link">
+            <i style="font-size: 1.2em" class="fas fa-arrow-left"></i>
+          </a>
+        {% else %}
+          <a href="{% url 'vocabulary:all-words-list' %}"
+             style="color: black" class="btn btn-link">
+            <i style="font-size: 1.2em" class="fas fa-arrow-left"></i>
+          </a>
+        {% endif %}
+      {% endwith %}
+
+      <h4 style="display: inline-block; vertical-align: bottom">{{ object|yesno:"Edit,Add new" }} word</h4>
     </div>
 
     <div>
       <div class="d-flex">
-        <a
-            href="{% url 'vocabulary:word-list-create' %}"
-            class="btn btn-link me-2"
-        >
+        <label for="submit-form" class="btn btn-link me-2">
           <i style="color: black; font-size: 1.3em;"
-             class="fas fa-plus"></i>
-        </a>
+             class="fas fa-check"></i>
+        </label>
       </div>
     </div>
   </div>
 
-  <h1>{{ object|yesno:"Update,Create" }} word</h1>
+  <br>
   <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
 
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input id="submit-form" type="submit" value="Submit" class="d-none">
   </form>
 {% endblock %}

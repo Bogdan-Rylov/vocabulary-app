@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class WordList(models.Model):
-    title = models.CharField(max_length=120, unique=True)
+    title = models.CharField(max_length=120)
     description = models.TextField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -21,6 +21,12 @@ class WordList(models.Model):
         verbose_name = "Word list"
         verbose_name_plural = "Word lists"
         ordering = ["title"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["title", "user"],
+                name="unique_title_user"
+            )
+        ]
 
     def __str__(self):
         return self.title
@@ -35,7 +41,12 @@ class Tag(models.Model):
     )
 
     class Meta:
-        unique_together = ("name", "user",)
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "user"],
+                name="unique_name_user"
+            )
+        ]
 
 
 class PartOfSpeech(models.Model):
@@ -46,7 +57,7 @@ class PartOfSpeech(models.Model):
     class Meta:
         verbose_name = "Part of speech"
         verbose_name_plural = "Parts of speech"
-        ordering = ["name"]
+        ordering = ["id"]
 
     def __str__(self):
         return self.name
@@ -86,6 +97,7 @@ class Word(models.Model):
     )
     tags = models.ManyToManyField(
         Tag,
+        blank=True,
         through="WordTag",
         related_name="words"
     )

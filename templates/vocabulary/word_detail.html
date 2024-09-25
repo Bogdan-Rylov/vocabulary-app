@@ -3,38 +3,94 @@
 {% block content %}
   <div class="d-flex justify-content-between align-items-center mt-3">
     <div>
-      {% if word_list_pk %}
-        <a href="{% url 'vocabulary:word-list-words-list' list_pk=word_list_pk %}"
-           style="color: black" class="btn btn-link">
-          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
-        </a>
-      {% else %}
-        <a href="{% url 'vocabulary:all-words-list' %}"
-           style="color: black" class="btn btn-link">
-          <i style="font-size: 1.1em" class="fas fa-arrow-left fa-2x"></i>
-        </a>
-      {% endif %}
+      {% with list_pk=request.resolver_match.kwargs.word_list_pk %}
+        {% if list_pk %}
+          <a href="{% url 'vocabulary:word-list-words-list' word_list_pk=list_pk %}"
+             style="color: black" class="btn btn-link">
+            <i style="font-size: 1.2em" class="fas fa-arrow-left"></i>
+          </a>
+        {% else %}
+          <a href="{% url 'vocabulary:all-words-list' %}"
+             style="color: black" class="btn btn-link">
+            <i style="font-size: 1.2em" class="fas fa-arrow-left"></i>
+          </a>
+        {% endif %}
+      {% endwith %}
     </div>
 
     <div>
-      <a class="btn btn-light me-2">
-        <i style="font-size: 1.1em; font-weight: 300" class="fas fa-edit"></i>
-      </a>
-      <a class="btn btn-danger">
-        <i style="font-weight: 300" class="fas fa-trash-alt"></i>
-      </a>
+      {% with list_pk=request.resolver_match.kwargs.list_pk %}
+        {% if list_pk %}
+          <a href="{% url 'vocabulary:word-update-in-list' word_list_pk=list_pk pk=word.id %}"
+             class="btn btn-link me-2">
+            <i style="color: black; font-size: 1.2em; font-weight: 300"
+               class="fas fa-edit"></i>
+          </a>
+          <a href="{% url 'vocabulary:word-detail-in-list' word_list_pk=list_pk pk=word.id %}"
+             class="btn btn-link">
+            <i style="color: red; font-size: 1.2em; font-weight: 300"
+               class="fas fa-trash-alt"></i>
+          </a>
+        {% else %}
+          <a href="{% url 'vocabulary:word-update-in-all' pk=word.id %}"
+             class="btn btn-link me-2">
+            <i style="color: black; font-size: 1.2em; font-weight: 300"
+               class="fas fa-edit"></i>
+          </a>
+          <a href="{% url 'vocabulary:word-delete-in-all' pk=word.id %}"
+             class="btn btn-link">
+            <i style="color: red; font-size: 1.2em; font-weight: 300"
+               class="fas fa-trash-alt"></i>
+          </a>
+        {% endif %}
+      {% endwith %}
     </div>
   </div>
 
-  <br>
-  <div class="row justify-content-left">
-    <div class="col-md-6">
-      <h5 class="d-inline"><span style="font-size: 0.85em; font-weight: normal"
-                                 class="text-muted">noun</span> tree</h5>
-      <p style="margin: 0">дерево</p>
-      <p class="mt-1">
-        - a perennial plant with a trunk and branches
-      </p>
+  <div class="row justify-content-left mt-4">
+    <p>Created: {{ word.date_added }} | Updated {{ word.date_updated }}</p>
+    <p>Knowledge level: {{ word.knowledge_level }}</p>
+
+    <h3 class="d-inline">
+      <span style="font-size: 0.65em; font-weight: normal"
+            class="text-muted">{{ word.part_of_speech.name }}</span> {{ word.text }}
+    </h3>
+
+    {% if word.transcription %}
+      <p>/{{ word.transcription }}/</p>
+    {% endif %}
+
+    <div class="mt-1">
+      <ul class="list-unstyled">
+        {% for translation in word.translations.all %}
+          <li class="mb-0"><i
+              class="fa fa-circle bullet"></i> {{ translation.text }}</li>
+
+        {% empty %}
+          <p>
+            No translations
+          </p>
+        {% endfor %}
+      </ul>
+
+      {% for definition in word.definitions.all %}
+        <p class="mb-0">
+          - {{ definition.text }}
+        </p>
+      {% empty %}
+        <p class="mb-0">
+          No definitions
+        </p>
+      {% endfor %}
     </div>
   </div>
+
+  <style>
+      .bullet {
+          font-size: 0.5em;
+          color: black;
+          margin: 0 7px;
+          vertical-align: middle;
+      }
+  </style>
 {% endblock %}

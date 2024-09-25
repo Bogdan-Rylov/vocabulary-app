@@ -1,12 +1,11 @@
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   {% block link %}
@@ -23,22 +22,29 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   {% endblock %}
 
   <title>{% block title %}{% endblock title %}</title>
 </head>
 
 <body>
+
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-sm-2">
-      {% if request.resolver_match.app_name == "vocabulary" %}
+    {% if request.resolver_match.app_name == "vocabulary" %}
+      <div class="col-sm-2">
         {% include "base/nav/_sidebar.html" %}
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
 
-    <div class="col-sm-10">
+    <div
+        {% if request.resolver_match.app_name == "vocabulary" %}
+          class="col-sm-10"
+        {% endif %}
+    >
       {% block content %}
       {% endblock %}
 

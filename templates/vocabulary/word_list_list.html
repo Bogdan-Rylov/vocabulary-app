@@ -29,7 +29,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="flex-grow-1">
         <h5 class="d-inline">
-          <a href="{% url 'vocabulary:word-list-words-list' list_pk=list.id %}"
+          <a href="{% url 'vocabulary:word-list-words-list' word_list_pk=list.id %}"
           >{{ list.title }}</a>
           <span> ({{ list.words.count }})</span>
         </h5>
@@ -42,13 +42,6 @@
         >
           <i style="color: black; font-size: 1.3em;"
              class="fas fa-info-circle"></i>
-        </a>
-        <a
-            href="{% url 'vocabulary:word-list-delete' pk=list.id %}"
-            class="btn btn-link"
-        >
-          <i style="color: red; font-size: 1.2em; font-weight: 300"
-             class="fas fa-trash-alt"></i>
         </a>
       </div>
     </div>
