@@ -1,0 +1,116 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+  <h1>Hi, {{ request.user.username }}!</h1>
+
+  <p>Total word lists: {{ word_lists }}</p>
+  <p>Total words: {{ words }}</p>
+  <p>Week performance: +{{ num_week_words }} new words</p>
+
+{#  <div class="row justify-content-left">#}
+{#    <div>#}
+{#      <select style="margin: 0" class="text-muted">#}
+{#        <option>noun</option>#}
+{#        <option>verb</option>#}
+{#        <option>adjective</option>#}
+{#        <option>adverb</option>#}
+{#        <option>pronoun</option>#}
+{#        <option>preposition</option>#}
+{#        <option>conjunction</option>#}
+{#        <option>interjection</option>#}
+{#        <option>phrase</option>#}
+{#      </select>#}
+{#    </div>#}
+{#    <h3 class="d-inline">#}
+{#      <input type="text" class="plain-text-input" value="tree"#}
+{#             placeholder="translation">#}
+{#    </h3>#}
+{##}
+{#    <ul style="margin-top: 8px" class="list-unstyled">#}
+{#      <li class="mb-0">#}
+{#        <i class="fa fa-circle bullet"></i>#}
+{#        <input type="text" class="plain-text-input" value="дерево"#}
+{#               placeholder="translation">#}
+{#      </li>#}
+{#      <li class="mb-0">#}
+{#        <i class="fa fa-circle bullet"></i>#}
+{#        <input type="text" class="plain-text-input"#}
+{#               placeholder="translation">#}
+{#      </li>#}
+{#    </ul>#}
+{##}
+{#    <hr style="margin: 10px 0 4px; color: #5050520d; opacity: 1;">#}
+{#    <div class="mt-1">#}
+{#      <span class="indented">a)</span><span#}
+{#        class="plain-text-textarea"#}
+{#        placeholder="definition"#}
+{#        role="textbox" contenteditable>a perennial plant with a trunk and branches#}
+{#        </span>#}
+{#    </div>#}
+{##}
+{#    <div class="d-flex">#}
+{#      <div class="ind">a)</div>#}
+{#      <div class="flex-grow-1"><span#}
+{#          class="plain-text-textarea"#}
+{#          placeholder="definition"#}
+{#          role="textbox" contenteditable>a perennial plant with a trunk and branches#}
+{#        </span>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+
+
+  <style>
+      .ind {
+          margin: 0;
+          padding: 0;
+          width: 1.75em;
+          text-align: center;
+      }
+
+      .indented {
+          margin: 0 7px;
+          padding: 0;
+      }
+
+      .bullet {
+          font-size: 0.5em;
+          color: black;
+          margin: 0 7px;
+          vertical-align: middle;
+      }
+
+      .plain-text-input {
+          display: inline;
+          font-family: inherit;
+          font-weight: inherit;
+          font-size: inherit;
+          margin: 0;
+          border: 0;
+          padding: 0;
+          width: auto;
+          max-width: 100%;
+          background: none;
+          outline: none;
+      }
+
+      .plain-text-textarea {
+          width: auto;
+          border: none;
+          background: none;
+          padding: 0;
+          margin: 0;
+          font-size: inherit;
+          color: inherit;
+          outline: none;
+          box-shadow: none;
+          resize: none;
+          overflow: hidden;
+      }
+
+      .plain-text-input::placeholder {
+          color: #5151534d;
+      }
+  </style>
+
+{% endblock %}
